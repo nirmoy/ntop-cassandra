@@ -1,0 +1,214 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//Dtd HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Authentication Page</title>
+<link type="text/css" href="../css/homePageStyle.css" rel="stylesheet">
+<script src="../js/globalFunctions.js"></script>
+<script src="../js/Navigation.js"></script>
+<script language="javascript">
+if (((top.location==self.location)&&(!opener))|| top.location.pathname!="/config/authentication_page.htm")
+top.location.href="../config/authentication_page.htm";
+visible = false;
+function formSubmit()
+{ username=document.forms[0].elements['userName$query'].value;
+var expdate = new Date();
+expdate.setMinutes(expdate.getMinutes()+3);
+set_cookie("usernme",username,expdate,"/");
+document.forms[0].submit();
+}
+function setVisibility()
+{
+if (((top.mainFrame)&&(top.mainFrame.location==document.location))||(opener))
+{
+document.body.style.visibility = "visible";
+document.body.style.display = "inline";
+visible = true;
+}
+}
+function displayName(){
+nme = document.forms[0].sysName.value;
+if (nme.length > 80){
+nme = nme.substring(0, 80) + "\n" + nme.substring(80, nme.length);
+}
+document.write(nme);
+}
+function checkURL()
+{
+if (((!top.mainFrame)||(top.mainFrame.location!=document.location))&&(!opener))
+{
+top.location.href="../home.htm";
+}
+else if ((!top.main)&&(opener))
+{
+alert('Parent Window is missing window will be closed.')
+window.close();
+}
+urlStr=document.location.href;
+targetStr="";
+j=0;
+bVal=false;
+for (i=0;i<urlStr.length;i++)
+{
+if ((urlStr.charAt(i)=='U')&&(urlStr.charAt(i+1)=='S')&&(urlStr.charAt(i+2)=='/'))
+{
+bVal=true;
+i+=3;
+while (urlStr.charAt(i)!='/')
+i++;
+}
+else
+targetStr+=urlStr.charAt(i);
+}
+if (bVal)
+document.location.href= targetStr;
+}
+function move(e)
+{
+whKey = e.keyCode;
+if(whKey=='13')
+{
+document.forms[0].password$query.focus();
+}
+}
+function onEnterSub(e)
+{
+whKey = e.keyCode;
+if(whKey=='13')
+{
+formSubmit();
+}
+}
+function strFormatFunc(str)
+{
+var i,format="";
+for(i=0;i<str.length;i++)
+{
+format=format+(str.charAt(i));
+if((i%2!=0)&&(i<str.length-1))
+format=format+":".charAt(0);
+}
+return(format);
+}
+function writeDeviceType()
+{
+var unitType=document.forms[0].elements["rlPhdModuleType$repeat?1"].value;
+if(unitType<100)
+document.write("AT-80000S");
+if(unitType>100)
+document.write("AT-8000GS");
+}
+</script>
+</head>
+<body style="visibility: hidden;" id="mainBody" onLoad="setVisibility();checkURL();if (visible)document.forms[0].userName$query.focus();">
+<FORM METHOD='POST'  ACTION="/config/log_off_page.htm" name="mainPageForm" id="mainPageForm" onsubmit="return(formSubmit());" onLoad="document.forms[0].userName$query.focus();"   >
+<INPUT  TYPE="HIDDEN" Name="restoreUrl" size=256   value="">
+<INPUT  TYPE="HIDDEN" NAME="errorCollector"   value="" SIZE="20" MAXLENGTH="20">
+<INPUT  type=hidden name="rndBasePhysicalAddress" disabled   value="eccd6d70bafb" SIZE="20" MAXLENGTH="20">
+<INPUT  type=hidden name="sysName" size="20" maxlength="160"   value="Library-Local">
+<INPUT  Type=HIDDEN Name=ModuleTable   value="OK" SIZE="20" MAXLENGTH="20">
+<INPUT  Type=HIDDEN Name= rlPhdModuleTable$VT   value="OK" SIZE="20" MAXLENGTH="20">
+<INPUT  Type=HIDDEN Name=rlPhdModuleStackUnit$VT SIZE=128   value="Type=0;Access=1;NumOfEnumerations=0;Range0=[-2147483648,2147483647]">
+<INPUT  Type=HIDDEN Name= rlPhdModuleIndex$VT SIZE=128   value="Type=0;Access=1;NumOfEnumerations=0;Range0=[-2147483648,2147483647]">
+<INPUT  Type=HIDDEN Name=rlPhdModuleType$VT SIZE=128   value="Type=0;Access=1;NumOfEnumerations=0;Range0=[-2147483648,2147483647]">
+<INPUT  Type=HIDDEN Name=ModuleTable$endVT   value="OK" SIZE="20" MAXLENGTH="20">
+
+<INPUT  TYPE=HIDDEN NAME=rlPhdModuleStackUnit$repeat?1 size=20  Disabled   value="1">
+<INPUT  TYPE=HIDDEN NAME=rlPhdModuleIndex$repeat?1 size=20  Disabled   value="1">
+<INPUT  TYPE=HIDDEN NAME=rlPhdModuleType$repeat?1 size=20  Disabled   value="101">
+<INPUT  type=HIDDEN Name=ModuleTable$endRepeat?1  disabled   value="OK" SIZE="20" MAXLENGTH="20">
+
+<table height="100%" width="100%" align="left">
+<tr height="1px">
+<td colspan="2">
+<div style="LEFT: 850px; POSITION:absolute; TOP: 17px"><img src="../images/logo.gif"></div>
+<table height="100%" width="100%">
+<tr height="12%">
+<td colspan="2">
+<table width=100% ID="Table1">
+<tr height=10px><td><img border=0 height=1px width=800px src=../images/keeping.gif></td></tr>
+<tr><td><table ID="Table2"><tr height=20px><td width=107px ></td><td id='topCaption' class='bordersTop' width="199px" bgcolor="#006996"><script>writeDeviceType();</script></td></td></tr></table></td></tr>
+<tr><td><table width=100% cellpadding="0" cellspacing="0" ID="Table3"><tr height=38px><td class='borderBottom' width=33px><br></td><td class='borders' id='midCaption' width=589 style="border-top:none;border-left:none;border-right:none;" valign="bottom"><div style="background-color:#ffcf00;width:550px;border:1px solid black;border-bottom:none;height:100%;">Log In</div></td><td class='borderBottom'></td><td width=32px></td></tr></table></td></tr>
+<tr><td><table ID="Table4" style="width:580px;"><tr height=30px><td width=202><br></td><td class='bordersBottom' bgcolor=#006996 align=right style="padding-right:60px;">
+<table ID="Table5" align=center>
+<tr>
+<td id='botCaptionName'>System Name: &nbsp;
+<script>displayName();</script>
+</td>
+</tr>
+<tr>
+<td id='botCaptionMAC'>MAC Addr: &nbsp;
+<script>document.write(strFormatFunc(document.forms[0].rndBasePhysicalAddress.value))</script>
+</td>
+</tr>
+</table>
+</td></tr></table></td></tr>
+<tr height=20px><td></td></tr>
+</table>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr height="20px">
+<td></td>
+</tr>
+<tr height="1px">
+<td width="100%" colspan="2" align="center">
+<img src="../images/welcmpic.gif">
+</td>
+</tr>
+<tr height="20px">
+<td></td>
+</tr>
+<tr width="100%" valign="top">
+<td colspan="2">
+<table align="center">
+<tr>
+<td width="100%" colspan="2" align="center">
+<table align="center">
+<tr height="100%" align="center">
+<td nowrap class='logIn' width="100px">User Name</td>
+<td align="center" width="100px" >
+<INPUT  TYPE=text style="width:160px;" tabindex=3 size=22 NAME=userName$query MAXLENGTH=20 tabIndex="0" onkeypress="move(event)"  value="">
+</td>
+</tr>
+<tr height="100%" align="center">
+<td class='logIn' width="100px">Password</td>
+<td align="center" width="100px" style="padding-top:5px;padding-bottom:5px;">
+<INPUT  TYPE=password style="width:160px;" tabindex=4 NAME=password$query size=22 MAXLENGTH=160 onkeypress="onEnterSub(event)"  value="">
+</td>
+</tr>
+<tr>
+</tr>
+<tr align="center">
+<td align="center" width="100px">
+<div class="buttonSet" align="center">
+<div class="bWrapperUp bEmphasized">
+<td>
+<div class="buttonSet">
+<div class="bWrapperUp">
+<input type="button" tabindex="5" class="ButtonBig" value='Sign in' onclick="formSubmit()"
+ID="submitButton" NAME="submitButton"> <input type="button" tabindex="6" class="ButtonBig" value='Clear' onclick="document.forms[0].reset()"
+ID="submitButton" NAME="submitButton">
+</div>
+</div>
+</td>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr height="1px">
+<td class='leftFooter' style="padding:2px;padding-left:20px;font-size:11px;font-family:arial;text-align:left;" colspan="2" ><img src="../images/leftFooter.gif" align="absmiddle"> Copyright © 2009 Allied Telesis Inc. All rights reserved.<br>
+</td>
+</tr>
+</table>
+</body>
+</form>
+</html>

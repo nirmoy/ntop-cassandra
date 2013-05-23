@@ -1,0 +1,6 @@
+#
+cassandraserver:127.0.0.1:9160
+keyspace:ntop:SimpleStrategy:1
+columnfamily:ntop:string
+datadumpInterval:20
+cassandradumpInterval:1
